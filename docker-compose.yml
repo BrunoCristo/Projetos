@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./backend:/app
+    environment:
+      - PORT=8085
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - PORT=5173
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
