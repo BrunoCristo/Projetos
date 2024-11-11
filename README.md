@@ -49,7 +49,7 @@ npm install
 ```
 3. Execute o backend em modo de desenvolvimento:
 ```bash
-npm run dev
+npm run start
 ```
 O backend estará rodando localmente. Geralmente, o servidor estará disponível em `http://localhost:8085` (isso pode variar dependendo da configuração).
 
