@@ -7,7 +7,7 @@ Um sistema para cadastro de lista de tarefas.
 Antes de executar o projeto, certifique-se de que você tenha as seguintes ferramentas instaladas em sua máquina:
 
 - [Docker](https://www.docker.com/get-started) (para rodar via Docker)
-- [Node.js 20](https://nodejs.org/en/) (certifique-se de usar a versão 20 LTS)
+- [Node.js 20](https://nodejs.org/pt/) (certifique-se de usar a versão 20 LTS)
 - [npm](https://www.npmjs.com/) (gerenciador de pacotes do Node.js)
 
 Além disso, é necessário criar um arquivo de configuração do Firebase. Para isso, siga os passos abaixo.
