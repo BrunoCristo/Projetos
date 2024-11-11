@@ -1,15 +1,14 @@
-// routes/taskRoutes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const taskController = require('../controllers/taskController');
+const taskController = require("../controllers/taskController");
 
 // Rota para inserir tarefas
-router.post('/insert-tasks', taskController.insertTasks);
+router.post("/insert-tasks", taskController.insertTasks);
 
 // Rota para listar tarefas
-router.get('/get-tasks', taskController.getTasks);
+router.get("/get-tasks", taskController.getTasks);
 
 // Rota para atualizar o status de uma tarefa
-router.patch('/update-task-status', taskController.updateTaskStatus);
+router.patch("/update-task-status", taskController.updateTaskStatus);
 
 module.exports = router;
