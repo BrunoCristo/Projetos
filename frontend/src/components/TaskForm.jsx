@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-
 function TaskForm({ onAddTask }) {
   const [description, setDescription] = useState("");
   const [responsable, setResponsable] = useState("");
   const [status, setStatus] = useState("todo");
-  const [computer, setComputer] = useState(getComputerInfo());
-
-  const getComputerInfo = () => {
-    const { userAgent, platform } = navigator;
-    return `${platform} - ${userAgent}`;
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddTask({ description, responsable, status, computer });
+    onAddTask({ description, responsable, status });
     setDescription("");
     setResponsable("");
-    setComputer(getComputerInfo());
     setStatus("todo");
   };
   // Verifica se todos os campos estão preenchidos

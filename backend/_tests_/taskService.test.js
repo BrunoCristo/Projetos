@@ -15,7 +15,6 @@ jest.mock("../firebaseConfig", () => ({
   }),
 }));
 
-// Mock do módulo os
 jest.mock("os", () => ({
   hostname: jest.fn().mockReturnValue("mock-computer-name"),
 }));
@@ -31,10 +30,12 @@ describe("taskService", () => {
       { description: "Task 2", status: "doing", responsable: "Jane" },
     ];
 
-    // Mock da função db.batch()
+    // Mock da função batch e set
     const createdTasks = await taskService.addTasks(tasks);
 
-    expect(db.batch().set).toHaveBeenCalledTimes(2); // Verifica se o método set foi chamado duas vezes
+    expect(db.batch).toHaveBeenCalled(); // Verifica se o batch foi inicializado
+    expect(db.batch().set).toHaveBeenCalledTimes(2); // Verifica se o set foi chamado duas vezes
+    expect(db.batch().commit).toHaveBeenCalled(); // Verifica se o commit foi chamado
     expect(createdTasks).toHaveLength(2); // Verifica se duas tarefas foram retornadas
     expect(createdTasks[0]).toHaveProperty("id"); // Verifica se a tarefa tem um ID
     expect(createdTasks[0].computer).toBe("mock-computer-name"); // Verifica se o nome do computador foi incluído
@@ -71,6 +72,7 @@ describe("taskService", () => {
 
     await taskService.updateTaskStatus(taskId, newStatus);
 
+    expect(db.collection).toHaveBeenCalledWith("tasks"); // Verifica se a coleção 'tasks' foi acessada
     expect(db.collection().doc).toHaveBeenCalledWith(taskId); // Verifica se o documento correto foi acessado
     expect(db.collection().doc().update).toHaveBeenCalledWith({
       status: newStatus,
