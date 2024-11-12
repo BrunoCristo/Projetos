@@ -7,6 +7,7 @@ services:
       - "8085:8085"
     volumes:
       - ./backend:/app
+      - /app/node_modules # Volume anônimo para a pasta node_modules
     environment:
       - PORT=8085
     networks:
@@ -18,6 +19,7 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
+      - /app/node_modules # Volume anônimo para a pasta node_modules
     environment:
       - PORT=5173
     networks:
