@@ -11,4 +11,6 @@ router.get("/get-tasks", taskController.getTasks);
 // Rota para atualizar o status de uma tarefa
 router.patch("/update-task-status", taskController.updateTaskStatus);
 
+router.delete("/delete-task/:id", taskController.deleteTask);
+
 module.exports = router;

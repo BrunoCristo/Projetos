@@ -4,15 +4,16 @@ const os = require("os");
 
 // Mock do Firestore
 jest.mock("../firebaseConfig", () => ({
-  collection: jest.fn().mockReturnThis(),
-  doc: jest.fn().mockReturnThis(),
-  set: jest.fn(),
-  update: jest.fn(),
-  get: jest.fn(),
+  collection: jest.fn().mockReturnThis(), // Mock do método collection
+  doc: jest.fn().mockReturnThis(), // Mock do método doc
+  set: jest.fn(), // Mock do método set
+  update: jest.fn(), // Mock do método update
+  get: jest.fn(), // Mock do método get
   batch: jest.fn().mockReturnValue({
-    set: jest.fn(),
-    commit: jest.fn().mockResolvedValue(true),
+    set: jest.fn(), // Mock do método set dentro de batch
+    commit: jest.fn().mockResolvedValue(true), // Mock do método commit dentro de batch
   }),
+  delete: jest.fn() // Mock do método delete
 }));
 
 jest.mock("os", () => ({
@@ -108,5 +109,36 @@ describe("taskService", () => {
       taskService.updateTaskStatus(invalidTaskId, newStatus)
     ).rejects.toThrow("Tarefa não encontrada");
     expect(db.collection().doc).toHaveBeenCalledWith(invalidTaskId); // Verifica se o documento correto foi acessado
+  });
+
+  test("deleteTask deve excluir uma tarefa com sucesso", async () => {
+    const taskId = "task-id-1";
+  
+    // Mock da resposta do Firestore para a função de deletação
+    db.collection().doc().delete.mockResolvedValue(true);
+  
+    // Chama a função de deletar
+    await taskService.deleteTask(taskId);
+  
+    // Verifica se o delete foi chamado com o ID correto
+    expect(db.collection().doc().delete).toHaveBeenCalledWith(); // Verifica se o delete foi chamado corretamente
+    expect(db.collection().doc).toHaveBeenCalledWith(taskId); // Verifica se o documento correto foi acessado
+  });
+
+  test("deleteTask deve lançar um erro se a tarefa não for encontrada", async () => {
+    const invalidTaskId = "task-id-invalido";
+
+    // Simula um erro no Firestore ao tentar deletar
+    db.collection().doc().delete.mockRejectedValue(new Error("Tarefa não encontrada"));
+
+    // Testa se o erro é lançado corretamente
+    await expect(taskService.deleteTask(invalidTaskId)).rejects.toThrow(
+      "Tarefa não encontrada"
+    );
+    expect(db.collection().doc).toHaveBeenCalledWith(invalidTaskId); // Verifica se o documento correto foi acessado
+  });
+
+  test("deleteTask deve lançar um erro se o ID da tarefa não for fornecido", async () => {
+    await expect(taskService.deleteTask()).rejects.toThrow("ID da tarefa é obrigatório para exclusão");
   });
 });

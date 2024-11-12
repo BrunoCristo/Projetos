@@ -6,7 +6,6 @@ export function translateStatus(status) {
       done: 'Concluído',
     };
   
-    console.log(status)
     return statusTranslations[status];
   }
   

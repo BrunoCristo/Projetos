@@ -39,8 +39,21 @@ const updateTaskStatus = async (req, res) => {
   }
 };
 
+const deleteTask = async (req, res) => {
+  const { id } = req.params; // Recebe o ID como parâmetro de URL
+
+  try {
+    await taskService.deleteTask(id);
+    res.status(200).json({ message: "Tarefa excluída com sucesso" });
+  } catch (error) {
+    console.error("Erro ao excluir a tarefa:", error);
+    res.status(500).json({ error: "Erro ao excluir a tarefa" });
+  }
+};
+
 module.exports = {
   insertTasks,
   getTasks,
   updateTaskStatus,
+  deleteTask
 };

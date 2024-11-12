@@ -47,6 +47,15 @@ function App() {
     }
   };
 
+  const deleteTask = async (taskId) => {
+    try {
+      await axios.delete(`http://localhost:8085/delete-task/${taskId}`);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (error) {
+      console.error("Erro ao excluir a tarefa:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-800 flex justify-center p-6">
       <div className="w-[700px]">
@@ -54,7 +63,7 @@ function App() {
           Gerenciador de Tarefas
         </h1>
         <TaskForm onAddTask={addTask} />
-        <TaskList tasks={tasks} onStatusChange={handleStatusChange} />
+        <TaskList tasks={tasks} onStatusChange={handleStatusChange} onRemoveTask={deleteTask} />
       </div>
     </div>
   );

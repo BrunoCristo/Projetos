@@ -33,8 +33,16 @@ const updateTaskStatus = async (id, status) => {
   await taskRef.update({ status });
 };
 
+const deleteTask = async (id) => {
+  if (!id) throw new Error("ID da tarefa é obrigatório para exclusão");
+
+  const taskRef = db.collection("tasks").doc(id);
+  await taskRef.delete();
+};
+
 module.exports = {
   addTasks,
   getTasks,
   updateTaskStatus,
+  deleteTask
 };
