@@ -29,12 +29,12 @@ function TaskList({ tasks, onStatusChange, onRemoveTask }) {
               .map((task) => (
                 <div
                   className="space-y-4 bg-slate-400 my-1 p-2 rounded-md shadow cursor-pointer"
-                  key={task.id}
-                  onClick={() => handleTaskClick(task)} // Quando a tarefa for clicada, abre o detalhamento
+                  key={task.id} // Quando a tarefa for clicada, abre o detalhamento
                 >
-                  <ul className="text-white">
+                  <ul className="text-white" onClick={() => handleTaskClick(task)}>
                     <li className="font-bold text-ellipsis overflow-hidden whitespace-nowrap">{task.description}</li>
                     <li className="text-sm">{task.responsable}</li>
+                    <li className="text-sm">{task.group}</li>
                     <li className="text-sm">{task.computer}</li>
                   </ul>
                   <div className="flex items-center justify-between">

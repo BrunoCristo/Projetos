@@ -19,6 +19,10 @@ function TaskDetails({ task, onClose }) {
           <p>{task.responsable}</p>
         </div>
         <div className="mb-4">
+          <strong>Grupo:</strong>
+          <p>{task.group}</p>
+        </div>
+        <div className="mb-4">
           <strong>Computador:</strong>
           <p>{task.computer}</p>
         </div>

@@ -7,5 +7,5 @@ export function translateStatus(status) {
     };
   
     return statusTranslations[status];
-  }
+}
   

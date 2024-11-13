@@ -2,17 +2,19 @@ import React, { useState } from "react";
 function TaskForm({ onAddTask }) {
   const [description, setDescription] = useState("");
   const [responsable, setResponsable] = useState("");
+  const [group, setGroup] = useState("");
   const [status, setStatus] = useState("todo");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddTask({ description, responsable, status });
+    onAddTask({ description, responsable, group, status });
     setDescription("");
     setResponsable("");
+    setGroup("");
     setStatus("todo");
   };
   // Verifica se todos os campos estão preenchidos
-  const isFormValid = description && responsable && status;
+  const isFormValid = description && responsable && status && group;
 
   return (
     <div className="space-y-4 p-3 bg-slate-200 shadow rounded">
@@ -23,6 +25,13 @@ function TaskForm({ onAddTask }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Descrição"
+          />
+
+          <input
+            className="border border-slate-300 outline-slate-400 px-4 py-2 rounded-md"
+            value={group}
+            onChange={(e) => setGroup(e.target.value)}
+            placeholder="Time"
           />
 
           <input
